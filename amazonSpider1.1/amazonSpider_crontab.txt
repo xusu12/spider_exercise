@@ -1,0 +1,44 @@
+# amazonSpider 定时器
+
+# 数据入库
+*/1 * * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/main/ && nohup python3 DataServer.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/DataServer.log 2>&1 &
+
+# 数据爬取
+*/1 * * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/main/ && nohup python3 CrawlerWorker.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/CrawlerWorker.log 2>&1 &
+
+# 初始化脚本, 凌晨0点1分运行.
+1 15-16 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 init_url.py > /dev/null 2>&1 &
+
+# 实时监测脚本, 每分钟运行, 监测新加入的任务
+*/1 * * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 url_monitoring.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/url-monitoring.log 2>&1 &
+
+# 任务报告(由于IP变化, 报告已经没有价值, 但是脚本依然要开启, 用于清理一些缓存)
+58 */2 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 report.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/report.log 2>&1 &
+
+# 重试脚本, 除pt0点外的每小时读取一次监控表, 读取更新时间小于当天pt0点的任务入队列
+4 16-23 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 url_retry.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/url-retry.log 2>&1 &
+
+# 重试脚本, 同上
+4 1-14 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 url_retry.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/url-retry.log 2>&1 &
+
+# 新任务重试脚本, 用于补漏. 每10分钟检测一次, 是否有漏网的新任务(当任务量过大时无效, 需要改进)
+*/10 * * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 retry_new_url.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/retry-new-url.log 2>&1 &
+
+# 从数据表读取更新时间小于当天0点, 又在监控表中的任务
+6 1-14 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 retry_url_from_data_db.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/retry-url-from-db.log 2>&1 &
+
+# 读取从没更新过的任务(补漏脚本)
+3 */1 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 retry_not_update.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/retry-not-update.log 2>&1 
+
+# 统计任务总量
+57 */1 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 statistics_sum.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/statistics-tasks.log 2>&1 &
+
+# 统计已更新任务量
+58 */1 * * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/Spider/Script/ && nohup python3 statistics_tasks.py >> /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/statistics-tasks.log 2>&1 &
+
+# 日志切割脚本, 每天pt时间23:59进行日志切割.
+59 14-15 */1 * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/ && nohup python3 bak_old_log.py > /data1/www/iclogic/python-crawler/version/amazonSpider1.1/crontabLog/logbak.log 2>&1
+
+# 日志切割脚本同上
+59 14-15 */1 * * cd /data1/www/iclogic/python-crawler/version/amazonSpider1.1/log/ && nohup python3 bak_old_log.py > /data1/www/iclogic/python-crawler/version/amazonSpider1.1/log/logbak.log 2>&1
+

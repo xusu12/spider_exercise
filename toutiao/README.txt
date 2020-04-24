@@ -1,0 +1,4 @@
+爬取今日头条'图片'板块的数据，使用scrapy配合selenium进行爬取
+页面上的数据是通过ajax动态加载的，所以需要请求动态的url才能获取数据。
+头条的url会包含a_s、c_p、_signature三个参数，这三个都是通过js的算法生成的，前两个参数可以通过ascp.getHoney()方法生成，_signature参数是通过TAC.sign(0)方法生成
+我们通过selenium加载整个页面，然后通过driver.execute_script来执行相对应的js代码，就可以拿到我们需要的参数，从而构建参发送请求
