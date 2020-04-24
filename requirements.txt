@@ -12,5 +12,5 @@ pytesseract==0.2.4
 python-dateutil==2.7.5
 six==1.12.0
 TA-Lib==0.4.17
-urllib3==1.24.1
+urllib3==1.24.2
 XlsxWriter==1.1.2
