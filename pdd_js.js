@@ -1561,7 +1561,7 @@ var encrypt_i = {};
         ,
         h.en = function(e) {
             e = e || 0;
-            var t, n = O[w](e), r = [];
+            var t, n = parseInt(e), r = [];
             !function(e, t) {
                 return e > t
             }(n, 0) ? r[y](1) : r[y](0);
@@ -1573,7 +1573,7 @@ var encrypt_i = {};
                 return e / t
             }(o[_], 8)), a = 0; a < i; a += 1) {
                 var s = o[p](a * 8, (a + 1) * 8);
-                r[y](O[w](s, 2))
+                r[y](parseInt(s, 2))
             }
             var c = r[_];
             return r[f](c),
@@ -1610,7 +1610,7 @@ var encrypt_i = {};
             }
                 , n = m("0xf", "34bL");
             e = e || 0;
-            for (var r = Math.abs(O[w](e)), o = r[d](2), i = [], a = (o = function(e, t, n, r) {
+            for (var r = Math.abs(parseInt(e)), o = r[d](2), i = [], a = (o = function(e, t, n, r) {
                 return e(t, n, r)
             }(u, o, function(e, t) {
                 return e * t
@@ -1626,7 +1626,7 @@ var encrypt_i = {};
                     r = r >>> 7
             }
             return i[n](function(e) {
-                return O[w](e, 2)
+                return parseInt(e, 2)
             })
         }
         ,
@@ -1678,7 +1678,7 @@ var encrypt_i = {};
             var i = Math.abs(e)[d](2)
                 , a = "";
             a = n.WYTPE(o, 0) && n.KCHer(o, 7) ? n.SwJiS(i, n.jwjBN(u, o[d](2), 3, "0")) : n.abyYL(i, n.zqnjT);
-            var s = [O[w](a[l](Math.max(n.IwXCL(a[_], 8), 0)), 2)];
+            var s = [parseInt(a[l](Math.max(n.IwXCL(a[_], 8), 0)), 2)];
             return n.zYOsJ(o, 7) ? s[v](h.va(o), r) : s[v](r)
         }
         ,
@@ -1686,7 +1686,7 @@ var encrypt_i = {};
             for (var t = [], n = e[d](2).split(""); n[_] < 16; 0)
                 n[f](0);
             return n = n.join(""),
-                t[y](O[w](n[p](0, 8), 2), O[w](n[p](8, 16), 2)),
+                t[y](parseInt(n[p](0, 8), 2), parseInt(n[p](8, 16), 2)),
                 t
         }
         ,
@@ -2500,9 +2500,9 @@ function main(e, t) {
         }
     ;
     var se = {};
-    // se[V] = {},
-    // se[V][j] = 1440,
-    // se[V][T] = 813
+    se[V] = {},
+    se[V][j] = 1440,
+    se[V][T] = 813
     se[f("0xa0", "0Vdd")] = function() {
         this[V] = {},
             this[V][j] = 1440,
@@ -2527,11 +2527,11 @@ function main(e, t) {
             , t = function(e, t) {
             return e(t)
         };
-        this[V] = e(J[v](t(String, function(e, t) {
+        this[V] = e(parseInt(t(String, function(e, t) {
             return e * t
-        }(Q[C](), e(Q[_](2, 52), 1))), 10), J[v](t(String, function(e, t) {
+        }(Math.random(), e(Math.pow(2, 52), 1))), 10), parseInt(t(String, function(e, t) {
             return e * t
-        }(Q[C](), e(Q[_](2, 30), 1))), 10)) + "-" + q
+        }(Math.random(), e(Math.pow(2, 30), 1))), 10)) + "-" + q
     }
         ,
         ce[f("0xa4", "3NmV")] = function() {
@@ -2696,7 +2696,7 @@ function main(e, t) {
     ;
     var pe = {};
     pe[f("0xb3", "c6Bq")] = function() {
-        this[V] = X[g]() - $
+        this[V] = Date.now() - $
     }
         ,
         pe[f("0xb4", "Fvsl")] = function() {
@@ -2815,10 +2815,10 @@ function main(e, t) {
             Z ? J[E][k](e[f("0xd0", "J7u(")], ie, !0) : l[f("0xd1", "3zQ4")]()
     }
     function we() {
-        l[f("0xd2", "tGHt")](),
-            [ie, oe][z](function(e) {
-                e[V] = []
-            })
+        // l[f("0xd2", "tGHt")](),
+        [ie, oe][z](function(e) {
+            e[V] = []
+        })
     }
     function _e() {
         var e = {};
@@ -2916,7 +2916,7 @@ function main(e, t) {
             o[t[f("0xfd", "Fvsl")]]("0");
         o = o[f("0xfe", "l*GI")]("");
         var i = [];
-        t[f("0xff", "l9X*")](r[L], 0) ? i[F](0, 0) : t[f("0x100", "Ya61")](r[L], 0) && t[f("0x101", "2Bha")](r[L], t[f("0x102", "U0CN")](t[f("0x103", "43d3")](1, 8), 1)) ? i[F](0, r[L]) : t[f("0x104", ")uYb")](r[L], t[f("0x102", "U0CN")](t[f("0x105", "Sdwk")](1, 8), 1)) && i[F](J[v](o[w](0, 8), 2), J[v](o[w](8, 16), 2)),
+        t[f("0xff", "l9X*")](r[L], 0) ? i[F](0, 0) : t[f("0x100", "Ya61")](r[L], 0) && t[f("0x101", "2Bha")](r[L], t[f("0x102", "U0CN")](t[f("0x103", "43d3")](1, 8), 1)) ? i[F](0, r[L]) : t[f("0x104", ")uYb")](r[L], t[f("0x102", "U0CN")](t[f("0x105", "Sdwk")](1, 8), 1)) && i[F](parseInt(o[w](0, 8), 2), parseInt(o[w](8, 16), 2)),
             r = [][W]([t[f("0x106", "c6Bq")](K, "N") ? 2 : 1], [1, 0, 0], i, r);
 
         var a = deflate.deflate(r)
@@ -2956,32 +2956,32 @@ function main(e, t) {
         this[V] = e.tBAIe(re, e.dHLYN)
     }
         ,
-        ye[f("0xc8", "nBw!")] = function() {
-            var e = [][W](u[b]("au"), u[b](this[V]));
-            return ne(e)
+    ye[f("0xc8", "nBw!")] = function() {
+        var e = [][W](u[b]("au"), u[b](this[V]));
+        return ne(e)
+    }
+    ,
+    ye[f("0xc9", "3NmV")] = function() {
+        return this[V][L] ? [][W](u.ek(20, this[V])) : []
+    }
+    ,
+    Se[f("0x119", ")uYb")][f("0x11a", "Ya61")] = function(e) {
+        $ = X[g](),
+            q = e
+    }
+    ,
+    Se[f("0x63", "2Bha")][H] = G,
+    Se[f("0x11b", "9axY")][f("0x11c", "oG^X")] = G,
+    Se[f("0x11d", "LYQ!")][f("0x11e", "Ca4X")] = function() {
+        var e = {};
+        return e[f("0x11f", "Sdwk")] = function(e) {
+            return e()
         }
-        ,
-        ye[f("0xc9", "3NmV")] = function() {
-            return this[V][L] ? [][W](u.ek(20, this[V])) : []
-        }
-        ,
-        Se[f("0x119", ")uYb")][f("0x11a", "Ya61")] = function(e) {
-            $ = X[g](),
-                q = e
-        }
-        ,
-        Se[f("0x63", "2Bha")][H] = G,
-        Se[f("0x11b", "9axY")][f("0x11c", "oG^X")] = G,
-        Se[f("0x11d", "LYQ!")][f("0x11e", "Ca4X")] = function() {
-            var e = {};
-            return e[f("0x11f", "Sdwk")] = function(e) {
-                return e()
-            }
-                ,
-                e[f("0x120", "J7u(")](Ce)
-        }
-        ,
-        Se[f("0x121", "dHIh")][f("0x122", "P!c2")] = function() {
+            ,
+            e[f("0x120", "J7u(")](Ce)
+    }
+    ,
+    Se[f("0x121", "dHIh")][f("0x122", "P!c2")] = function() {
             var t = {};
             return t[f("0x123", "ui)S")] = function(e, t) {
                 return e(t)
