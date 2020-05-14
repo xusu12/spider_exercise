@@ -37,30 +37,23 @@ iframe = driver.find_elements_by_tag_name("iframe")[0]
 # 输入用户名和密码
 # ActionChains(driver).move_by_offset(random.randint(10, 60), random.randint(10, 60)).perform()
 # driver.find_element_by_id('TPL_username_1').send_keys('广州恒大淘宝官方旗舰店:店长')
-driver.find_element_by_id('TPL_username_1').send_keys('广州恒大淘宝官方旗舰店')
-time.sleep(1)
+driver.find_element_by_id('fm-login-id').send_keys('广州恒大淘宝官方旗舰店')
+time.sleep(2)
 # ActionChains(driver).move_by_offset(random.randint(10, 60), random.randint(10, 60)).perform()
-driver.find_element_by_id('TPL_password_1').send_keys('itsales178')
-time.sleep(1)
+driver.find_element_by_id('fm-login-password').send_keys('itsales178')
+time.sleep(2)
 
-driver.find_element_by_id('J_SubmitStatic').click()
+# 滑动验证码
+action = ActionChains(driver)
+source = driver.find_element_by_xpath("//span[@id='nc_1_n1z']")  # 找到滑动的按钮
+action.click_and_hold(on_element=source).perform()  # 鼠标左键按下不放
+action.move_by_offset(258, 0).perform()  # 需要滑动的坐标
+action.release().perform()  # 释放鼠标
+
+
+driver.find_element_by_xpath('//*[@id="login-form"]/div[4]/button').click()
 time.sleep(3)
-#
-# driver.find_element_by_id('TPL_password_1').send_keys('itsales178')
-# time.sleep(1)
-#
-# # 滑动验证码
-# action = ActionChains(driver)
-# source = driver.find_element_by_xpath("//span[@id='nc_1_n1z']")  # 找到滑动的按钮
-# action.click_and_hold(on_element=source).perform()  # 鼠标左键按下不放
-# action.move_by_offset(200, 0).perform()  # 需要滑动的坐标
-# action.release().perform()  # 释放鼠标
 
-# driver.find_element_by_id('J_SubmitStatic').click()
-
-driver.execute_script("""
-console.log(111)
-""")
 
 time.sleep(100000)
 driver.quit()
