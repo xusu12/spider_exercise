@@ -113,6 +113,16 @@ var f_Pkcs7 = {
 //         e
 //     }();
 
+var f_decrypt = function(e, t, n, r) {
+            return r = this.cfg.extend(r),
+            t = this._parse(t, r.format),
+            e.createDecryptor(n, r).finalize(t.ciphertext)
+        };
+
+var f_aes_decrypt = function(n, r, o) {
+                        return f_decrypt(t, n, r, o)
+                    };
+
 function main(e, t, n) {
     "use strict";
     // var r = encrypt_r;
@@ -125,12 +135,12 @@ function main(e, t, n) {
     var s = "w28Cz694s63kBYk4"
       , u = f_Utf8.parse(s)
       , l = {
-        iv: f_Utf8.parse("4kYBk36s496zC82w"),
-        // mode: f_CBC,
-        padding: f_Pkcs7
-    };
+            iv: f_Utf8.parse("4kYBk36s496zC82w"),
+            // mode: f_CBC,
+            padding: f_Pkcs7
+        };
     var data1 = f_base64_stringify(f_Hex.parse(e));
-    var data2 = r.AES.decrypt(data1, u, l);
+    var data2 = f_aes_decrypt(data1, u, l);
     n = JSON.parse(f_Utf8.stringify(data2));
 
     // n = JSON.parse(r.AES.decrypt(function(e) {
