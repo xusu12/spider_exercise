@@ -47,19 +47,19 @@ var f_Hex = {
 };
 
 var f_base64_stringify = function(e) {
-            var t = e.words
-              , n = e.sigBytes
-              , r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-            // e.clamp();
-            for (var o = [], i = 0; i < n; i += 3)
-                for (var a = (t[i >>> 2] >>> 24 - i % 4 * 8 & 255) << 16 | (t[i + 1 >>> 2] >>> 24 - (i + 1) % 4 * 8 & 255) << 8 | t[i + 2 >>> 2] >>> 24 - (i + 2) % 4 * 8 & 255, c = 0; c < 4 && i + .75 * c < n; c++)
-                    o.push(r.charAt(a >>> 6 * (3 - c) & 63));
-            var s = r.charAt(64);
-            if (s)
-                for (; o.length % 4; )
-                    o.push(s);
-            return o.join("")
-        };
+    var t = e.words
+      , n = e.sigBytes
+      , r = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+    // e.clamp();
+    for (var o = [], i = 0; i < n; i += 3)
+        for (var a = (t[i >>> 2] >>> 24 - i % 4 * 8 & 255) << 16 | (t[i + 1 >>> 2] >>> 24 - (i + 1) % 4 * 8 & 255) << 8 | t[i + 2 >>> 2] >>> 24 - (i + 2) % 4 * 8 & 255, c = 0; c < 4 && i + .75 * c < n; c++)
+            o.push(r.charAt(a >>> 6 * (3 - c) & 63));
+    var s = r.charAt(64);
+    if (s)
+        for (; o.length % 4; )
+            o.push(s);
+    return o.join("")
+};
 
 var f_Pkcs7 = {
     pad: function(e, t) {
@@ -81,11 +81,11 @@ var f_create = function() {
             };
 
 var f_invKeySchedule = function (u, lfdpi) {
-    var o = lfdpi['o']
-    var l = lfdpi['l']
-    var f = lfdpi['f']
-    var d = lfdpi['d']
-    var p = lfdpi['p']
+    var o = lfdpi['o'];
+    var l = lfdpi['l'];
+    var f = lfdpi['f'];
+    var d = lfdpi['d'];
+    var p = lfdpi['p'];
     var h = [0, 1, 2, 4, 8, 16, 32, 64, 128, 27, 54]
     for (var e = u, t = e.words, n = e.sigBytes / 4, r = 4 * ((n + 6) + 1), i = [], a = 0; a < r; a++)
         if (a < n)
@@ -101,7 +101,7 @@ var f_invKeySchedule = function (u, lfdpi) {
             c = u % 4 ? i[a] : i[a - 4],
             s[u] = u < 4 || a <= 4 ? c : l[o[c >>> 24]] ^ f[o[c >>> 16 & 255]] ^ d[o[c >>> 8 & 255]] ^ p[o[255 & c]]
     return s
-}
+};
 
 var f_get_lfdpi = function() {
     var e = r
@@ -209,23 +209,32 @@ var f_decryptBlock = function(e, t, lfdpi, _invKeySchedule) {
                 f_doCryptBlock(e, t, _invKeySchedule, lfdpi['l'], lfdpi['f'], lfdpi['d'], lfdpi['p'], lfdpi['i']),
                 n = e[t + 1],
                 e[t + 1] = e[t + 3],
-                e[t + 3] = n
+                e[t + 3] = n;
                 return e
             };
 
-var f_processBlock = function(e, n, lfdpi, _invKeySchedule) {
+var f_call = function (t, n, r, iv) {
+    var o = iv;
+    for (var i = 0; i < r; i++)
+       t[n + i] ^= o[i]
+    return t
+};
+
+var f_processBlock = function(e, n, iv, lfdpi, _invKeySchedule) {
                 var o = 4
                   , i = e.slice(n, n + o);
                 var r = f_decryptBlock(e, n, lfdpi, _invKeySchedule),
-                _prevBlock = i
+
+                r = f_call(r, n, o, iv),
+                iv = i;
                 return {
                     'r': r,
-                    '_prevBlock': _prevBlock
+                    'iv': iv
                 }
 
             };
 
-var f_process = function(data, t, lfdpi, _invKeySchedule) {
+var f_process = function(data, t, iv, lfdpi, _invKeySchedule) {
                 var n = data
                   , r = n.words
                   , o = n.sigBytes
@@ -235,9 +244,9 @@ var f_process = function(data, t, lfdpi, _invKeySchedule) {
                   , u = Math.min(4 * s, o);
                 if (s) {
                     for (var l = 0; l < s; l += i){
-                        var res = f_processBlock(r, l, lfdpi, _invKeySchedule);
+                        var res = f_processBlock(r, l, iv, lfdpi, _invKeySchedule);
                         r = res["r"];
-                        _prevBlock = res["_prevBlock"]
+                        iv = res["iv"]
                     }
 
                     var f = r.splice(0, s);
@@ -250,26 +259,27 @@ var f_process = function(data, t, lfdpi, _invKeySchedule) {
 function main(e, t, n) {
     "use strict";
     var s = "w28Cz694s63kBYk4"
-      , u = f_Utf8.parse(s);
+      , u = f_Utf8.parse(s)
+      , iv = f_Utf8.parse("4kYBk36s496zC82w").words;
 
-    var lfdpi = f_get_lfdpi()
+    var lfdpi = f_get_lfdpi();
 
       // , l = {
       //       iv: f_Utf8.parse("4kYBk36s496zC82w"),
       //       // mode: f_CBC,
       //       padding: f_Pkcs7
       //   };
-    var _invKeySchedule = f_invKeySchedule(u, lfdpi)
+    var _invKeySchedule = f_invKeySchedule(u, lfdpi);
     var data1 = f_base64_stringify(f_Hex.parse(e));
     var data2 = f_parse(data1);
 
     var t = true;
-    var res =  f_process(data2, t, lfdpi, _invKeySchedule);
+    var res =  f_process(data2, t, iv, lfdpi, _invKeySchedule);
 
     // console.log(data1);
-    // console.log(data2);
-    console.log(res)
-    console.log(f_Utf8.stringify(res.words))
+    console.log(data2);
+    // console.log(res);
+    console.log(f_u_stringify(res))
 }
 
 data = 'D4DB6D83FCCA89E3152182CE2CD197DEE81FA68C0074BD235B4BF60278BC73E98A33119D9127E2CDBC8B7DD24C3EE304091C5C58FE2A1E86FD26EF0553E27C03540E181E9A7222978CE2CF494A28921CE0E8DDD32E5E4906DD9FB4FDB43111D0F03C628A1CCF3A883CCA94F2E121DB0EC2ECEC8B008FDE6E8B6FF0E9D345F89E4B3EA305D831E10B6CFF078273DE1A36A53A96D07B0A2DDBF2C9DE51BD693662FD4BE1398764D8FCE1D6F9785E8E8D33919C466706A775F21F46F4ED30F7E1F4A2524BE3DD869684D57004183829E2ABBD266C74267C013F4679ED8F74DB2F2D5F989B392BC834501A6183E60805F480FBE0CA659EF4EBF94A35E3E87C8796B34A6C4607E6EFE2F5907547B93FEEC175869923D66005E0C40D0A34BCF72F9451928F83F5ED3319CD6ADB57C073D43B95E44A74083DDA5BC54CD483C2A600213DE21531CCEA1CE9617A4704E04E7AC34A818770587698E53E75844188C22D88E3AA4CFDF843A51897E9C651B295B632F5F0282C1FBE030F6856187820244F25341964BF0C861898C1389DACD0E98839EEBCAB0C3211760337816661102137332D1AB74B94AD3DD405D5801A21F13F9DFE93C8C904C94CBD70A2674A73CC888CAE2A1870321250CB8DE35C7F228CB1C8F670521C5744F20C634E58821F7E91D51D90918962254F939D9FE8587F304F2137E0FA9DAF7B1092FE87D2B16A1333EAED74A78949EE73057A143E03C07A5EF04971D690D9FB11F889003B15F9199AD9B1768C9832D11A8E6BE0CAF098567D6A09';
