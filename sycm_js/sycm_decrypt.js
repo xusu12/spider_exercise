@@ -266,6 +266,7 @@ function main(e, t, n) {
     var _invKeySchedule = f_invKeySchedule(u, lfdpi);
     var data1 = f_base64_stringify(f_Hex.parse(e));
     var data2 = f_parse(data1);
+    var data2 = f_Hex.parse(e);
 
     var t = true;
     var res =  f_process(data2, t, iv, lfdpi, _invKeySchedule);
