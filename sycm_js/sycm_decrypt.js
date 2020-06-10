@@ -1,3 +1,7 @@
+/*
+    完全使用js代码实现生意参谋市场数据data解密
+*/
+
 var f_a_init = function(e, t) {
                     e = this.words = e || [],
                     this.sigBytes = null != t ? t : 4 * e.length
