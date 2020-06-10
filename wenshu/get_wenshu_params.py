@@ -8,7 +8,7 @@ import execjs
 
 
 def get_ciphertext():
-    with open('/home/xusu/桌面/code/spider_exercise/wenshu/wenshu_js.js') as f:
+    with open('wenshu/wenshu_js.js') as f:
         js = f.read()
 
     js_ctx = execjs.compile(js)
@@ -17,7 +17,7 @@ def get_ciphertext():
 
 
 def decrypt_res(result, secretKey):
-    with open('/home/xusu/桌面/code/spider_exercise/wenshu/wenshu_js.js') as f:
+    with open('wenshu/wenshu_js.js') as f:
         js = f.read()
 
     js_ctx = execjs.compile(js)

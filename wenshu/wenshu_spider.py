@@ -1,3 +1,7 @@
+import os
+import sys
+sys.path.insert(0, os.getcwd())
+
 import requests
 import execjs
 import json
@@ -48,7 +52,7 @@ def spider():
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61 Safari/537.36',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
         'Origin': 'http://wenshu.court.gov.cn',
-        'Cookie': 'HM4hUBT0dDOn80S=jXU74X4_P_wKNHJRn_A3OWfD6FPPzuozoEyfKOwyub_ZAXasQ2q_KTcD3JMot7Ta; SESSION=e0ea12e4-18c3-4294-9320-7196815adae9; HM4hUBT0dDOn80T=4hCk9eVeGXkZ1opt7Zi_eaQyiSD_T4fyXb5zaBfVrVzNyJm93EtfFQLPT6oHuQ5B7K7bKcF3k_anwBRH9uG1.ITjRf..HGKT2ixO0ergek0vuhAT_D.QZnZ4RugdsURN_OUQfUY_HAkNroOB2PcdN4WPbKO2C0dEXN7m7aJzEqv.TJJ34ebHsMiWVc5S.6RNwWxLKxI3hVaRV1NOG9wKSdsTo6oM1Bw3E3ZYm0uXFr_9RkOfOPeB2JdyQsPASLy8FB8v0ALXD_JnvbJR1dDSjfvxlfcyZJh4qIDofU9.lPa0xNwTtV0Zfq.Z1fPSomkpw15asKFgg.TakACg3S3mRS8MEPHnK.KTLePPU_N6zBVrPdnmvzkBTnyICGQNZ0Q.2R8A',
+        'Cookie': 'HM4hUBT0dDOn80S=lLGQN9yCwJr0ASIWXP.EN37r6D36UgZTMtBC57uA7Xwmp3a.qe.odywlfVQzu8fd; SESSION=8b9121cf-beff-43b1-843f-b42d31114f40; HM4hUBT0dDOn80T=4XzYe1aZr50hUZv6rFbD8CJwTcmL3cDOmpMnKY86WJ9Ncdh6tkfY33IWk4llcfbOSuID_la_7ivfsUuGWuDUh8U5w5zloEHR27vzmRRcsrfQeF2esctJ6BuTy2hd2HlVnEBoLyONU2tqa4kUGdOujfUyiIO_ovV1AAK9BUXZ5sewyouJQO.lTg56myKYX.rz89K3cL9lZp1a_tRc9r0MIG.DF2Hzbk15tsKSu0XGCDCSdQmQSfDWf6eLdfh76UDs3Dm12WTF54IDx8mRYTSitHMuh7kpgc11MjF1m9y5YZuVA44Z15zp40UAwS.ctu4G3SQ7OSRZqfe2tkmCA3X9TcXNL',
         "Proxy-Authorization": 'Basic ' + appKey,
     }
 
