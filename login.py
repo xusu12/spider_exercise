@@ -12,7 +12,8 @@ option = ChromeOptions()
 # option.add_experimental_option('excludeSwitches', ['enable-automation'])
 # driver = webdriver.Chrome(options=option)
 
-driver = webdriver.Chrome()
+# driver = webdriver.Chrome()
+driver = webdriver.Chrome(executable_path='/mnt/downloads/chromedriver')
 # 隐藏window.navigator.webdriver值
 driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
   "source": """
