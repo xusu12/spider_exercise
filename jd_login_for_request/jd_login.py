@@ -31,6 +31,7 @@ class JdLogin(object):
         })
         res = self.session.get(get_session_id_url, headers=self.headers)
         self.session_id = re.findall(r'sessionId="(\d+)";', res.text)[0]
+        print(self.session_id)
 
     def get_captcha(self):
         # 获取图片验证码
@@ -80,6 +81,10 @@ class JdLogin(object):
         print(self.distance)
 
     def varify_captcha(self):
+        jseq_url = 'https://seq.jd.com/jseq.html?d=7TJI7tFPWdZpzlDd7TZ37B%3CuwIWPw4wdiQPmSg6d7TZ37t3bWtZ*zt7jhlp4hlZXzf9szlJpzP9*ieWPw4wdFgxPzgfuJ%3CP47eAB6SW*7eAe6eJBFh%3Cd7TZ37lFXitfB7eAe6eJBFhZByg9uSg6d7TZ37BiDZH4xwL4EwLAlwB6kZL6*ZLwd7T7L7tZ*7eAB6T4e7T7L7lfpFIWPwj%3CdfTFc64oj6PR6wj77AHZAgTiBZk2eTjDkTjFRRA8ewBRARkpi6kJSTkZSR47cA%3CCZfjJNAAJcgLAeR%3CNhS4kfT%3CROZAE5fkb66fRKZ%3Cf0ZPP5S4%3ClZ4ZZS%3CpZ7eAe6eJlig*d7TZ37B%3Cd7T7L7lZjygkP7eAB6T%3CkOTcDwBWjOLwxZLWPZj6/&p=&loc=https://passport.jd.com/new/login.aspx?ReturnUrl=https%253A%252F%252Fwww.jd.com%252F&callback=jsonp_024043174570774073'
+        self.session.get(jseq_url, headers=self.headers)
+        time.sleep(0.5)
+
         self.get_tracks()  # 生成轨迹信息
         self.encrypt_tracks()  # 加密轨迹信息
 
