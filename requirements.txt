@@ -5,7 +5,7 @@ ipaddress==1.0.22
 lxml==4.2.4
 numpy==1.15.1
 pi==0.1.2
-Pillow==5.2.0
+Pillow==7.1.0
 pycryptodome==3.8.1
 pycurl==7.43.0.2
 pytesseract==0.2.4
