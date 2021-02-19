@@ -8,9 +8,10 @@ def get_page_data(i):
     time.sleep(1)
 
 
-while True:
-    pool = Pool()
-    for i in range(10):
-        pool.apply_async(get_page_data, args=(i, ))
+# while True:
+pool = Pool()
+for i in range(25):
+    pool.apply_async(get_page_data, args=(i, ))
 
-    pool.join()
+pool.close()
+pool.join()

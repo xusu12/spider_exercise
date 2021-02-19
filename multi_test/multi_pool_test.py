@@ -14,15 +14,13 @@ def get_page_data(i):
     time.sleep(1)
 
 
-
 def main():
-    while True:
-        pool = Pool()
-        for i in range(20):
-            pool.apply_async(get_page_data, args=(i,))
+    pool = Pool()
+    for i in range(1, 26):
+        pool.apply_async(get_page_data, args=(i,))
 
-        pool.close()
-        pool.join()
+    pool.close()
+    pool.join()
 
 
 if __name__ == '__main__':

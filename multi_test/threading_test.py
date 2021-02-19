@@ -6,30 +6,17 @@ import threading
 import time
 
 
-def add_to_queue():
-    for i in range(0, 100):
-        print("存入队列: {}".format(i))
+def task(i):
+    for j in range(5):
+        print(f'这是线程{i}')
+        print(j)
         time.sleep(1)
 
 
-def get_from_queue():
-    for i in range(0, 100):
-        print("队列: {}".format(i))
-        # q.task_done()
-        time.sleep(1)
+for i in range(20):
+    t = threading.Thread(target=task, args=(i, ))
+    # t.setDaemon(True)
+    t.start()
+# t.join()
 
-# 创建线程
-t1 = threading.Thread(target=add_to_queue)
-# 设置为守护线程
-t1.setDaemon(True)
-# 启动线程
-t1.start()
 
-t2 = threading.Thread(target=get_from_queue)
-t2.setDaemon(True)
-t2.start()
-
-# 队列加入主线线程, 等待队列中任务完成为止
-# q.join()
-t1.join()
-t2.join()
