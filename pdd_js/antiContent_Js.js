@@ -950,9 +950,9 @@ pt[g("0x77", "zQEU")] = function() {
     var t = g("0x8a", "c9Yw");
     this[L] = Y[t]
 },
-    pt[g("0x8b", "7sIF")] = function() {
-        return rt([][E](encrypt.es("te"), encrypt.es(this[L])))
-    };
+pt[g("0x8b", "7sIF")] = function() {
+    return rt([][E](encrypt.es("te"), encrypt.es(this[L])))
+};
 var xt = {};
 xt["data"] = naNo_fp();
 
@@ -1672,8 +1672,6 @@ function shrinkBuf(t, n) {
             0: "",
             1: "stream end",
             2: "need dictionary",
-            1: "file error",
-            2: "stream error",
             3: "data error",
             4: "insufficient memory",
             5: "buffer error",

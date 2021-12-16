@@ -1,34 +1,50 @@
 import requests
+import json
 
-url = 'http://mobile.yangkeduo.com/search_result.html'
 
 headers = {
-    'AccessToken': 'V4SI2LKDRASXIDTLI3HR3OHBAVJVFLHRDCHA42I23X5NRFXZTLNA1102222',
-    'Cookie': 'api_uid=CiU0B13k6g0ZewBBRlwmAg==; _nano_fp=Xpd8npPJXqPal0d8X9_SuHun_flFeCbZIbgfFSqQ; ua=Mozilla%2F5.0%20(Macintosh%3B%20Intel%20Mac%20OS%20X%2010_15_3)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F80.0.3987.149%20Safari%2F537.36; webp=1; Hm_lvt_1370d93b7ce0e6f1d870cef43042d966=1587740537; PDDAccessToken=V4SI2LKDRASXIDTLI3HR3OHBAVJVFLHRDCHA42I23X5NRFXZTLNA1102222; pdd_user_id=8089136722978; pdd_user_uin=3K366JOTYWYGQN6BS3S2TAD2FU_GEXDA; JSESSIONID=E0437E8872CD3765EB1425FD2D976889; Hm_lpvt_1370d93b7ce0e6f1d870cef43042d966=1588651148',
-    'Referer': 'http://mobile.yangkeduo.com/search_result.html?search_key=%E9%9E%8B%E5%AD%90',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36',
-    'VerifyAuthToken': '02EATn_It1SS5g9XPLoQLQ'
+    "authority": "mms.pinduoduo.com",
+    "cache-control": "max-age=0",
+    "sec-ch-ua": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\"",
+    "anti-content": "0apWtxUkM_VetaVTkjxNbOcUXnkUa0tQexEVGdVBDe3dnOEmBzFv9pxs5agOomunJ-Vfki_v-twmG7oS3cmHsWwMkApMVigWOS3hCKkRmM1RVa6WmHs62HbtJ2bqtFeM1VD71IeM-ODB1FDB3HHB1KkM3FkMkheM2VeBVvyQgpaT9KodIYnH4xFI4UqYDPGYn-tj0Cznj0w49WDSsiWHQ9EKM2KKBAVHw9vn0QxzIVanisvu4aKqgFldyJqY5Y_lYv8jYn8vi0aiVUxiAs_qnSnd-zadyJQYcAvunbK9HSfgM5VSKMkOe7WIe-4uBtDe-gMzsW0_F_2p-tWK7zFdKBYzj3ZpMGguJxGofsmzep3uJtDKsAqeBt8Ovcg_EK6ypKSa9QKnUnoopfYn_Nc-2kfQBABk25B7DwmZLw3zdKL2_SbRfvL1coDH1qLUmB7XJoBww20JbEoywPGq9P",
+    "content-type": "application/json",
+    "sec-ch-ua-mobile": "?0",
+    "etag": "MBZfl2UapIwCDfrrGSaa8Do095KpjQ9z",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "accept": "*/*",
+    "origin": "https://mms.pinduoduo.com",
+    "sec-fetch-site": "same-origin",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-dest": "empty",
+    "referer": "https://mms.pinduoduo.com/goods/goods_list",
+    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8"
 }
-
-params = {
-    'pdduid': '8089136722978',
-    'item_ver': 'lzqq',
-    'source': 'index',
-    'search_met': 'history',
-    'track_data': 'refer_page_id,10002_1588575110055_lhrff5ajmo;refer_search_met_pos,0',
-    'list_id': 'SPm2npeCWh',
-    'sort': 'default',
-    'filter': '',
-    'q': '鞋子',
-    'page': 2,
-    'size': 50,
-    'flip': '20;4;0;0;f68edba4-a3d5-4835-8337-acc511e98db8',
-    'anti_content': '0aoAfxvYdyIgYgmaRsReFSn_2sh6UT6m_6suMWjE7eMF_2fpByOS3jKn2TYLBJ-jzvM6bGHgVQYbOXIYfhJ4IqbpCwh8MY7IO2G3dvQ6R5xiql61ud9Y6AJZyE2VFHRXDoLaU01FkntvFFzh1ar7R-jrVnmwEH4ozrXOpKCzgH9SjTtQCKzB6ShXt9Q49fdCq7JN1lJ-Q3cWKyQ6xi-qaZAh03WhFTQ57oJTh6JP4xtRf3-feUW_kgch7T_ZyBe1dBzk6QVqEfol2QqdVe1z4pxov-taDtKus8sL_1rI7_eYM1Sc2pC4KPV2IxnEWYI8gkwctFDFn1zaeVOXnQTjDDllGuOYqBKepKoBEdiV5I96ewPo-5CAISOc4FmGZqGX5a-3nTf8X2ZCMco51e2GkyEAwz7YtHKCCyJCo1aLBzI_gKQExSF5eJ7wB-wqmQLe4rOV4wvPgRLeg2YlOpeYnoUIpx7JUpJiyBVXunwpeHYNMAQAouDwgkaPPNggBADK2QlHUwSMtKdnv8c1GIFUIJ8N-DwjwFHSAzrXmV6QXYQ6oi-Vb3UPqboVRyxOYx6ELU5lhLKM5reLR_MwNz3GQbNDk0ezQjRQJfIt4r8llzcDO1lEDClVahPt3N8ScAYIecaQkBMEOscQblGK0vKnhr9N1-8V9'
+cookies = {
+    "api_uid": "CiXh1V8g3TfByABR0LNUAg==",
+    "_nano_fp": "Xpdbnq9YlpCJnqdaXC_d_0FzX7CcfQJcQaksDXxg",
+    "finger-FKGJ_0.1.2": "e6fc6cdbe0ec4971859ae01d29a00bc4",
+    "finger-cookie_0.1.2": "1b2bf49ee6628386e8c5aed6c2bf551b",
+    "_bee": "MBZfl2UapIwCDfrrGSaa8Do095KpjQ9z",
+    "_f77": "2c519f37-ba28-4c15-852f-b04440aedf6e",
+    "_a42": "e72500f1-1e95-4f90-aae3-adfa3caebc8b",
+    "rckk": "MBZfl2UapIwCDfrrGSaa8Do095KpjQ9z",
+    "ru1k": "2c519f37-ba28-4c15-852f-b04440aedf6e",
+    "ru2k": "e72500f1-1e95-4f90-aae3-adfa3caebc8b",
+    "mms_b84d1838": "3414,120,150,3397,3434,441,442,403,404,1202,1203,1204,1205,3417,1304",
+    "PASS_ID": "1-Vw4mriMrnmKT7wO1NjrRsc/fxVIEQ2VYlw+EOeLsQB7nW2iWC4rUI1a+49s3oBAmyt+ZRUkAUlFP0C2d27h8HA_496181899_101167027",
+    "x-visit-time": "1636624472608",
+    "JSESSIONID": "23B5375357DF1D6C0CA506751A630FD6"
 }
+url = "https://mms.pinduoduo.com/vodka/v2/mms/query/display/mall/goodsList"
+data = {
+    "page": 1,
+    "is_onsale": 1,
+    "sold_out": 0,
+    "size": 10
+}
+data = json.dumps(data)
+response = requests.post(url, headers=headers, cookies=cookies, data=data)
 
-res = requests.get(url, headers=headers, params=params)
-print(res.url)
-print(res.text)
-with open('./1.html', 'w') as f:
-    f.write(res.text)
-# print(res.text)
+print(response.text)
+print(response)
