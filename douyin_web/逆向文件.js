@@ -405,4 +405,4 @@ var xhr = new window.XMLHttpRequest();
 // 作品列表接口
 xhr.open("GET", "/aweme/v1/web/aweme/post/?device_platform=webapp&aid=6383&channel=channel_pc_web&sec_user_id=MS4wLjABAAAAYsGlaAlC63EwxXFJX-DkIdIcMNr5PxZy3h3PvIGobBFp8S11I-0xQMQ2i-Z182vk&max_cursor=1615597200000&count=10&publish_video_strategy_type=2&version_code=160100&version_name=16.1.0", true)
 
-xhr.send();
+console.log(xhr.send());

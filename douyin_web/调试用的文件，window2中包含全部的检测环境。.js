@@ -217,7 +217,7 @@ Object.keys(window).forEach(property => {
 window.sessionStorage;
 
 window.window = window;
-global.window = window
+global.window = window;
 
 with (window) {
     var glb;
@@ -4198,7 +4198,7 @@ with (window) {
 }
 
 delete document.cookie;
-delete document.referrer
+delete document.referrer;
 
 console.log("------------------\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------");
 global.byted_acrawler.init({
@@ -4211,7 +4211,7 @@ global.byted_acrawler.init({
 debugger;
 console.log("------------------\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------");
 
-var xhr = new window.XMLHttpRequest()
+var xhr = new window.XMLHttpRequest();
 xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
         console.log("------------------\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-------------------------");
